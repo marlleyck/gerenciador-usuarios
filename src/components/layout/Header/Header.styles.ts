@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const Header = styled.header`
     width: 100%;
-    height: 50px;
+    height: 80px;
     color: white;
-    background-color: #5A02D8;
+    background-image: linear-gradient(314deg, #5A02D8 25%, #8948E6 80%);
 
     display: flex;
     align-items: center;
@@ -15,4 +15,7 @@ export const Title = styled.h1`
     text-align: center;
     border-radius: 5px;
     padding: 0 10px;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 40px;
 `

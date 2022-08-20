@@ -7,14 +7,12 @@ import TableHeader from '../table/TableHeader/TableHeader';
 const Home = () => {
     return (
         <C.Container>
-            <Header />
-
             <C.Content>
-                <table>
+                <C.Table>
                     <TableHeader />
 
                     <TableBody />
-                </table>
+                </C.Table>
             </C.Content>
         </C.Container>
     );
