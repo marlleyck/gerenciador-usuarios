@@ -1,12 +1,18 @@
-import { useState } from 'react'
+import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
+
+import Home from './components/Home/Home';
 
 function App() {
 
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
+    <>
+      <Router>
+        <Routes>
+          <Route path='/' element={ <Home /> } />
+        </Routes>
+      </Router>
+    </>
   )
 }
 
-export default App
+export default App;
