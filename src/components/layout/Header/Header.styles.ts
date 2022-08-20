@@ -4,7 +4,7 @@ export const Header = styled.header`
     width: 100%;
     height: 80px;
     color: white;
-    background-image: linear-gradient(314deg, #5A02D8 25%, #8948E6 80%);
+    background-image: linear-gradient(314deg, #5A02D8 25%, #5A02D8 80%);
 
     display: flex;
     align-items: center;

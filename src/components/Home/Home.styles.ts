@@ -12,7 +12,7 @@ export const Content = styled.div`
     box-shadow: 3px 3px 10px rgb(194 192 192);
     border-radius: 8px;
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
