@@ -1,11 +1,11 @@
-import * as C from './Headet.styles'
+import * as C from './Header.styles'
 
 const Header = () => {
     return (
         <C.Header>
-            <h1>Header</h1>
+            <C.Title>Gerenciador de Usuários</C.Title>
         </C.Header>
-    )
+    );
 }
 
 export default Header;
