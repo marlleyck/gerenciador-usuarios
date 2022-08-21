@@ -33,10 +33,11 @@ export const Header = styled.header`
     align-items: center;
     justify-content: center;
     position: relative;
-    // background-image: linear-gradient(75deg, #3811af 30%, #734aec 90%);
     background-color: #8948E6;
     user-select: none;
     border-radius: 10px;
 `
 
-export const FormContainer = styled.div``
+export const FormContainer = styled.div`
+    margin-top: 25px;
+`

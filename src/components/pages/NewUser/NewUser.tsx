@@ -7,11 +7,11 @@ const NewUser = () => {
         <C.Container>
             <C.Content>
                 <C.Header>
-                    <C.Title>New User</C.Title>
+                    <C.Title>Novo Usuário</C.Title>
                 </C.Header>
 
                 <C.FormContainer>
-                    <Form />
+                    <Form button='Voltar' />
                 </C.FormContainer>
             </C.Content>
         </C.Container>
