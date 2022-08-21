@@ -1,19 +1,36 @@
 import * as C from './TableBody.styles'
 
-const TableBody = () => {
-    return (
-        <C.TBody>
-            <C.Tr>
-                <C.Td>MARLLEYCK NATHAN FERNANDES MARTINS SARAIVA</C.Td>
-                <C.Td>marlleyck@hotmail.com</C.Td>
-                <C.Td>123456789</C.Td>
-                <C.Td>Caraúbas</C.Td>
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { API } from '../../../types/API';
+
+type Props = {
+    users: API[];
+}
+
+const TableBody = ({users}: Props) => {
+    const navigate = useNavigate()
+    const { id } = useParams()
+
+return (
+    <tbody>
+        {users.map((user) => (
+            <tr key={user.id} id={String(user.id)}>
+                <C.Td>{user.name}</C.Td>
+                <C.Td>{user.email}</C.Td>
+                <C.Td>{user.phone}</C.Td>
+                <C.Td>{user.address.city}</C.Td>
                 <C.TdAction>
-                    <C.Button variable='editar'>Editar</C.Button>
+                    <C.Button 
+                        variable='editar'
+                        onClick={() => navigate(`/edituser`)}>
+                            Editar
+                        </C.Button>
                     <C.Button variable='excluir'>Excluir</C.Button>
                 </C.TdAction>
-            </C.Tr>
-        </C.TBody>
+            </tr>
+        ))}
+    </tbody>
     );
 }
 

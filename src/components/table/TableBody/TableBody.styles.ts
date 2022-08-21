@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-export const TBody = styled.tbody``
-
-export const Tr = styled.tr``
-
 export const Td = styled.td`
     padding: 10px;
     text-align: center;

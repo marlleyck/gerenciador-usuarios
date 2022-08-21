@@ -1,11 +1,26 @@
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import Home from './components/pages/Home/Home';
 import Header from './components/layout/Header/Header';
-import NewUserButton from './components/pages/NewUser/NewUserButton';
 import NewUser from './components/pages/NewUser/NewUser';
+import EditUser from './components/pages/EditUser/EditUser';
+
+import { API } from './types/API';
 
 function App() {
+  const [users, setUsers] = useState<API[]>([])
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      const response = await axios.get('https://jsonplaceholder.typicode.com/users')
+      const data = response.data
+      setUsers(data)
+    }
+
+    fetchApi()
+  }, [])
 
   return (
     <>
@@ -13,9 +28,11 @@ function App() {
         <Link to='/' style={{textDecoration: 'none'}}> <Header /> </Link>
 
         <Routes>
-          <Route path='/' element={ <Home Link={Link} /> } />
+          <Route path='/' element={ <Home users={users} /> } />
 
-          <Route path='/newuser' element={ <NewUser /> } />
+          <Route path='/newuser' element={ <NewUser users={users} setUsers={setUsers} /> } />
+
+          <Route path='/edituser/:id' element={ <EditUser /> } />
         </Routes>
       </Router>
     </>
