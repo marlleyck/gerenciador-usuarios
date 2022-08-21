@@ -1,9 +1,10 @@
 import * as C from './Form.styles';
 import * as React from 'react';
 
-import { FormEvent, MouseEventHandler, SyntheticEvent, useState } from 'react';
-import {useNavigate} from 'react-router-dom'
+import { useState } from 'react';
+import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios';
+import {v4 as uuidv4} from 'uuid'
 
 import {API} from '../../types/API'
 
@@ -20,6 +21,7 @@ const Form = ({users, setUsers, urlID}: Props) => {
     const [city, setCity] = useState('')
 
     const navigate = useNavigate()
+    const { id } = useParams()
 
     const clearValues = () => {
         setName('')
@@ -33,12 +35,11 @@ const Form = ({users, setUsers, urlID}: Props) => {
         navigate('/')
     }
 
-    const handleCreateUser = async (e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault()
+    const createUser = async () => {
         let newUsers = [...users]
         
         const user = {
-            id: 12345,
+            id: users.length + 1,
             name: name,
             email: email,
             phone: phone,
@@ -49,11 +50,24 @@ const Form = ({users, setUsers, urlID}: Props) => {
 
         const response = await axios.post(`https://jsonplaceholder.typicode.com/users`, user)
 
-        console.log(users)
-
         newUsers = [...users, user]
         setUsers(newUsers)
         clearValues()
+        navigate('/')
+        alert('Usuário cadastrado com sucesso!')
+    }
+
+    const editUser = async () => {
+        console.log('editando')
+    }
+
+    const handleUser = (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault()
+        if (id === undefined) {
+            createUser()
+        } else {
+            editUser()
+        }
     }
 
     const handleNameId = (): string => {
@@ -116,7 +130,7 @@ const Form = ({users, setUsers, urlID}: Props) => {
                     Voltar
             </C.Button>
             <C.Button 
-                onClick={handleCreateUser}>
+                onClick={handleUser}>
                     Adicionar
             </C.Button>
         </C.FormDiv>
