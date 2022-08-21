@@ -28,7 +28,7 @@ function App() {
         <Link to='/' style={{textDecoration: 'none'}}> <Header /> </Link>
 
         <Routes>
-          <Route path='/' element={ <Home users={users} /> } />
+          <Route path='/' element={ <Home users={users} setUsers={setUsers} /> } />
 
           <Route path='/newuser' element={ <NewUser users={users} setUsers={setUsers} /> } />
 

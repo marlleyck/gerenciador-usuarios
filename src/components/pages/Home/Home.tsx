@@ -10,9 +10,10 @@ import { API } from '../../../types/API';
 
 type Props = {
     users: API[];
+    setUsers: (value: API[]) => void;
 }
 
-const Home = ({users}: Props) => {
+const Home = ({users, setUsers}: Props) => {
     return (
         <C.Container>
             <Link to='/newuser'> <NewUserButton /> </Link>
@@ -21,7 +22,7 @@ const Home = ({users}: Props) => {
                 <C.Table>
                     <TableHeader />
 
-                    <TableBody users={users} />
+                    <TableBody users={users} setUsers={setUsers} />
                 </C.Table>
             </C.Content>
         </C.Container>

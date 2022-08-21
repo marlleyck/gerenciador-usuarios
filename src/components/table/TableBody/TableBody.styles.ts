@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const Td = styled.td`
     padding: 10px;
     text-align: center;
+    font-family: Roboto;
+    font-weight: 400;
 `
 
 export const TdAction = styled.td`
@@ -15,6 +17,8 @@ export const Button = styled.button<{variable: string}>`
     border: none;
     outline: none;
     font-size: 15px;
+    font-family: Roboto;
+    font-weight: 300;
     border-radius: 10px;
     color: white;
     cursor: pointer;
