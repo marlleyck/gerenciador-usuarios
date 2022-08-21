@@ -10,7 +10,7 @@ import {API} from '../../types/API'
 type Props = {
     users: API[];
     setUsers: (value: API[]) => void;
-    urlID: number;
+    urlID?: number;
 }
 
 const Form = ({users, setUsers, urlID}: Props) => {
