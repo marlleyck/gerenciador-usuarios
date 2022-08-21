@@ -10,9 +10,10 @@ import {API} from '../../types/API'
 type Props = {
     users: API[];
     setUsers: (value: API[]) => void;
+    urlID: number;
 }
 
-const Form = ({users, setUsers}: Props) => {
+const Form = ({users, setUsers, urlID}: Props) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
@@ -35,9 +36,8 @@ const Form = ({users, setUsers}: Props) => {
     const handleCreateUser = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault()
         let newUsers = [...users]
-
-        const response = await axios.post(`https://jsonplaceholder.typicode.com/users`,
-        {
+        
+        const user = {
             id: 12345,
             name: name,
             email: email,
@@ -45,37 +45,70 @@ const Form = ({users, setUsers}: Props) => {
             address: {
                 city: city
             }
-        })
+        }
 
-        console.log(response)
+        const response = await axios.post(`https://jsonplaceholder.typicode.com/users`, user)
 
-        newUsers = [...users, {
-            id: 12345,
-            name: name,
-            email: email,
-            phone: phone,
-            address: {
-                city: city
-            }
-        }]
+        console.log(users)
+
+        newUsers = [...users, user]
         setUsers(newUsers)
         clearValues()
+    }
+
+    const handleNameId = (): string => {
+        if (urlID != undefined) {
+            const user = users.filter((user) => user.id === urlID)
+            return user[0].name;
+        } else {
+            return name;
+        }
+    }
+
+    const handleEmailId = (): string => {
+        if (urlID != undefined) {
+            const user = users.filter((user) => user.id === urlID)
+            return user[0].email;
+        } else {
+            return email;
+        }
+    }
+
+    const handlePhoneId = (): string => {
+        if (urlID != undefined) {
+            const user = users.filter((user) => user.id === urlID)
+            return user[0].phone;
+        } else {
+            return phone;
+        }
+    }
+
+    const handleCityId = (): string => {
+        if (urlID != undefined) {
+            const user = users.filter((user) => user.id === urlID)
+            return user[0].address.city;
+        } else {
+            return city;
+        }
     }
 
     return(
         <C.FormDiv>
             <C.Input type='text' placeholder='Nome do cliente' 
                 onChange={(e) => {setName(e.target.value)}}
-                value={name} />
+                value={handleNameId()} />
+
             <C.Input type='email' placeholder='Email do cliente' 
                 onChange={(e) => {setEmail(e.target.value)}}
-                value={email} />
+                value={handleEmailId()} />
+
             <C.Input type='text' placeholder='Número do cliente'
                 onChange={(e) => {setPhone(e.target.value)}}
-                value={phone} />
+                value={handlePhoneId()} />
+
             <C.Input type='text' placeholder='Cidade do cliente'
                 onChange={(e) => {setCity(e.target.value)}}
-                value={city} />
+                value={handleCityId()} />
 
             <C.Button 
                 style={{backgroundColor: 'red'}} 

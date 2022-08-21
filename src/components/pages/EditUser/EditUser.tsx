@@ -2,7 +2,17 @@ import * as C from './EditUser.styles';
 
 import Form from '../../Form/Form';
 
-const EditUser = () => {
+import { API } from '../../../types/API'
+import { useParams } from 'react-router-dom';
+
+type Props = {
+    users: API[];
+    setUsers: (value: API[]) => void;
+}
+
+const EditUser = ({users, setUsers}: Props) => {
+    const { id } = useParams()
+
     return (
         <C.Container>
             <C.Content>
@@ -11,7 +21,7 @@ const EditUser = () => {
                 </C.Header>
 
                 <C.FormContainer>
-                    <Form button='Voltar' />
+                    <Form users={users} setUsers={setUsers} urlID={Number(id)} />
                 </C.FormContainer>
             </C.Content>
         </C.Container>

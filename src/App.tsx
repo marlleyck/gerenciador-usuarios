@@ -32,7 +32,7 @@ function App() {
 
           <Route path='/newuser' element={ <NewUser users={users} setUsers={setUsers} /> } />
 
-          <Route path='/edituser/:id' element={ <EditUser /> } />
+          <Route path='/edituser/:id' element={ <EditUser users={users} setUsers={setUsers} /> } />
         </Routes>
       </Router>
     </>

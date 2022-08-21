@@ -3,6 +3,7 @@ import * as C from './TableBody.styles'
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { API } from '../../../types/API';
+import EditUser from '../../pages/EditUser/EditUser'
 
 type Props = {
     users: API[];
@@ -11,6 +12,10 @@ type Props = {
 const TableBody = ({users}: Props) => {
     const navigate = useNavigate()
     const { id } = useParams()
+
+    const handleEditUser = (userID: number) => {
+        navigate(`/edituser/${userID}`)
+    }
 
 return (
     <tbody>
@@ -23,7 +28,7 @@ return (
                 <C.TdAction>
                     <C.Button 
                         variable='editar'
-                        onClick={() => navigate(`/edituser`)}>
+                        onClick={() => {handleEditUser(user.id)}}>
                             Editar
                         </C.Button>
                     <C.Button variable='excluir'>Excluir</C.Button>
