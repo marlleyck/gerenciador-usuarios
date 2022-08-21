@@ -1,23 +1,25 @@
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
 
-import Home from './components/Home/Home';
+import Home from './components/pages/Home/Home';
 import Header from './components/layout/Header/Header';
-import NewUser from './components/NewUser/NewUser';
+import NewUserButton from './components/pages/NewUser/NewUserButton';
+import NewUser from './components/pages/NewUser/NewUser';
 
 function App() {
 
   return (
     <>
       <Router>
-        <Header />
-        <NewUser />
+        <Link to='/' style={{textDecoration: 'none'}}> <Header /> </Link>
 
         <Routes>
-          <Route path='/' element={ <Home /> } />
+          <Route path='/' element={ <Home Link={Link} /> } />
+
+          <Route path='/newuser' element={ <NewUser /> } />
         </Routes>
       </Router>
     </>
-  )
+  );
 }
 
 export default App;

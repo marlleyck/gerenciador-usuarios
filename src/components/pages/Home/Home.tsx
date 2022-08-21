@@ -1,12 +1,14 @@
 import * as C from './Home.styles'
 
-import Header from '../layout/Header/Header';
-import TableBody from '../table/TableBody/TableBody';
-import TableHeader from '../table/TableHeader/TableHeader';
+import TableBody from '../../table/TableBody/TableBody';
+import TableHeader from '../../table/TableHeader/TableHeader';
+import NewUserButton from '../NewUser/NewUserButton';
 
-const Home = () => {
+const Home = ({Link}: any) => {
     return (
         <C.Container>
+            <Link to='/newuser'> <NewUserButton /> </Link>
+
             <C.Content>
                 <C.Table>
                     <TableHeader />

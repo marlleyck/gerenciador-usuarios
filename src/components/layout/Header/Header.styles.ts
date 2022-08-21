@@ -18,4 +18,6 @@ export const Title = styled.h1`
     font-weight: 300;
     text-transform: uppercase;
     font-size: 40px;
+    user-select: none;
+    cursor: pointer;
 `
