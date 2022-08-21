@@ -48,13 +48,19 @@ const Form = ({users, setUsers, urlID}: Props) => {
             }
         }
 
-        const response = await axios.post(`https://jsonplaceholder.typicode.com/users`, user)
+        try {
+            const response = await axios.post(`https://jsonplaceholder.typicode.com/users`, user)
+            console.log(response)
 
-        newUsers = [...users, user]
-        setUsers(newUsers)
-        clearValues()
-        navigate('/')
-        alert('Usuário cadastrado com sucesso!')
+            newUsers = [...users, user]
+            setUsers(newUsers)
+            clearValues()
+            alert('Usuário cadastrado com sucesso!')
+            navigate('/')
+
+        } catch(err) {
+            console.log(err)
+        }
     }
 
     const editUser = async () => {
