@@ -1,6 +1,7 @@
 import * as C from './Form.styles';
-import * as React from 'react';
+import { useContext } from 'react';
 
+import { UserContext } from '../../contexts/UserContext';
 import { useState } from 'react';
 import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios';
@@ -15,10 +16,8 @@ type Props = {
 }
 
 const Form = ({users, setUsers, urlID}: Props) => {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phone, setPhone] = useState('')
-    const [city, setCity] = useState('')
+
+    const {name, setName, email, setEmail, phone, setPhone, city, setCity} = useContext(UserContext)
 
     const navigate = useNavigate()
     const { id } = useParams()
@@ -36,9 +35,9 @@ const Form = ({users, setUsers, urlID}: Props) => {
     }
 
     const createUser = async () => {
-        let newUsers = [...users]
+        let newUsers: API[] = [...users]
         
-        const user = {
+        const user: API = {
             id: users.length + 1,
             name: name,
             email: email,
@@ -64,7 +63,49 @@ const Form = ({users, setUsers, urlID}: Props) => {
     }
 
     const editUser = async () => {
-        console.log('editando')
+        const confirmUser = users.filter((user) => user.id === urlID)
+        const confirmResp = confirm(`Deseja realmente editar o usuário: ${confirmUser[0].name}?`)
+
+        if (confirmResp) {
+            try {
+                
+                // const response = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`)
+
+                let newUsers: API[] = [...users]
+    
+                const newUser: API = {
+                    id: Number(id),
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    address: {
+                        city: city
+                    }
+                }
+                
+                newUsers = newUsers.map((user) => {
+                    if (user.id == urlID) {
+                        return user = newUser
+                    } else {
+                        return user;
+                    }
+                })
+                
+                
+
+                setUsers(newUsers)
+                alert('Usuário modificado com sucesso!')
+                navigate('/')
+                
+            } catch({response}: any) {
+                console.log(response)
+                users.map((user) => {
+                    if (user.id === urlID) {
+                        console.log(user.id)
+                    }
+                })
+            }
+        }
     }
 
     const handleUser = (e: React.MouseEvent<HTMLElement>) => {
@@ -76,59 +117,23 @@ const Form = ({users, setUsers, urlID}: Props) => {
         }
     }
 
-    const handleNameId = (): string => {
-        if (urlID != undefined) {
-            const user = users.filter((user) => user.id === urlID)
-            return user[0].name;
-        } else {
-            return name;
-        }
-    }
-
-    const handleEmailId = (): string => {
-        if (urlID != undefined) {
-            const user = users.filter((user) => user.id === urlID)
-            return user[0].email;
-        } else {
-            return email;
-        }
-    }
-
-    const handlePhoneId = (): string => {
-        if (urlID != undefined) {
-            const user = users.filter((user) => user.id === urlID)
-            return user[0].phone;
-        } else {
-            return phone;
-        }
-    }
-
-    const handleCityId = (): string => {
-        if (urlID != undefined) {
-            const user = users.filter((user) => user.id === urlID)
-            return user[0].address.city;
-        } else {
-            return city;
-        }
-    }
-
     return(
         <C.FormDiv>
-            <C.Input type='text' placeholder='Nome do cliente' 
+            <C.Input id='inpName' type='text' placeholder='Nome do cliente' 
                 onChange={(e) => {setName(e.target.value)}}
-                value={handleNameId()} />
+                value={name} />
 
-            <C.Input type='email' placeholder='Email do cliente' 
+            <C.Input id='inpEmail' type='email' placeholder='Email do cliente' 
                 onChange={(e) => {setEmail(e.target.value)}}
-                value={handleEmailId()} />
+                value={email} />
 
-            <C.Input type='text' placeholder='Número do cliente'
+            <C.Input id='inpPhone' type='text' placeholder='Número do cliente'
                 onChange={(e) => {setPhone(e.target.value)}}
-                value={handlePhoneId()} />
+                value={phone} />
 
-            <C.Input type='text' placeholder='Cidade do cliente'
+            <C.Input id='inpCity' type='text' placeholder='Cidade do cliente'
                 onChange={(e) => {setCity(e.target.value)}}
-                value={handleCityId()} />
+                value={city} />
 
             <C.Button 
                 style={{backgroundColor: 'red'}} 

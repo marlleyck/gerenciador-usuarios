@@ -1,21 +1,36 @@
 import * as C from './TableBody.styles'
 
 import { useNavigate, useParams } from 'react-router-dom';
+import { useContext } from 'react';
 
+import { UserContext } from '../../../contexts/UserContext';
 import { API } from '../../../types/API';
 import axios from 'axios'
+import Form from '../../Form/Form';
 
 type Props = {
-    users: API[];
-    setUsers: (value: API[]) => void;
+    users: API[],
+    setUsers: (newState: API[]) => void;
 }
+
 
 const TableBody = ({users, setUsers}: Props) => {
     const navigate = useNavigate()
     const { id } = useParams()
 
+    const {name, setName, email, setEmail, phone, setPhone, city, setCity} = useContext(UserContext)
+
     const handleEditUser = (userID: number) => {
         navigate(`/edituser/${userID}`)
+
+        users.map((user) => {
+            if (user.id === userID) {
+                setName(user.name)
+                setEmail(user.email)
+                setPhone(user.phone)
+                setCity(user.address.city)
+            }
+        })
     }
 
     const confirmDelete = (userId: number): boolean => {

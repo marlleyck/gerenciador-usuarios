@@ -1,12 +1,14 @@
 import * as C from './NewUser.styles'
+import { UserContext } from '../../../contexts/UserContext';
+import { useContext } from 'react';
 
 import Form from '../../Form/Form';
 
 import { API } from '../../../types/API';
 
-type Props = {
+type Props = { 
     users: API[];
-    setUsers: (value: API[]) => void;
+    setUsers: (newState: API[]) => void;
 }
 
 const NewUser = ({users, setUsers}: Props) => {
