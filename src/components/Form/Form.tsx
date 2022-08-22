@@ -68,9 +68,6 @@ const Form = ({users, setUsers, urlID}: Props) => {
 
         if (confirmResp) {
             try {
-                
-                // const response = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`)
-
                 let newUsers: API[] = [...users]
     
                 const newUser: API = {
@@ -92,18 +89,14 @@ const Form = ({users, setUsers, urlID}: Props) => {
                 })
                 
                 
+                const response = await axios.patch(`https://jsonplaceholder.typicode.com/users/${id}`, newUser)
 
                 setUsers(newUsers)
                 alert('Usuário modificado com sucesso!')
-                navigate('/')
+                navigate('/') 
                 
-            } catch({response}: any) {
-                console.log(response)
-                users.map((user) => {
-                    if (user.id === urlID) {
-                        console.log(user.id)
-                    }
-                })
+            } catch(err) {
+                console.log(err)
             }
         }
     }
