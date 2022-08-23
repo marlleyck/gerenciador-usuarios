@@ -58,6 +58,7 @@ const Form = ({users, setUsers, urlID}: Props) => {
             navigate('/')
 
         } catch(err) {
+            alert('Não foi possível criar o usuário!')
             console.log(err)
         }
     }
@@ -96,6 +97,7 @@ const Form = ({users, setUsers, urlID}: Props) => {
                 navigate('/') 
                 
             } catch(err) {
+                alert('Não foi possível modificar o usuário!')
                 console.log(err)
             }
         }

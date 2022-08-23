@@ -49,6 +49,7 @@ const TableBody = ({users, setUsers}: Props) => {
                 setUsers(newUsers)
                 alert('Usuário deletado com sucesso!')
             } catch(err) {
+                alert('Não foi possível remover o usuário!')
                 console.log(err)
             }
         }
