@@ -1,76 +1,52 @@
-import { createContext, ReactNode, useState } from "react";
-import {API} from '../types/API'
+import { createContext, useEffect, useState } from "react";
+import { api } from "../services/api";
 
-type UserContextProps = {
-    children: ReactNode;
-}
+import { UserType } from "../types/UserType";
+import { UserContextType } from "../types/UserContextType";
 
-type UserContextType = {
-    name: string;
-    setName: (newState: string) => void;
-    email: string;
-    setEmail: (newState: string) => void;
-    phone: string;
-    setPhone: (newState: string) => void;
-    city: string;
-    setCity: (newState: string) => void;
-    users: API[];
-    setUsers: (value: API[]) => void;
-}
+export const UserContext = createContext<UserContextType>(
+  {} as UserContextType
+);
 
+export const UserContextProvider = ({
+  children,
+}: {
+  children: JSX.Element;
+}) => {
+  const [users, setUsers] = useState<UserType[]>([]);
 
-const initialValue = {
-    name: '',
-    setName: () => {},
-    email: '',
-    setEmail: () => {},
-    phone: '',
-    setPhone: () => {},
-    city: '',
-    setCity: () => {},
-    users: [],
-    setUsers: () => {}
-}
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
 
-export const UserContext = createContext<UserContextType>(initialValue);
+  useEffect(() => {
+    const fetchApi = async () => {
+      const response = await api.get("/users");
+      const data = response.data;
 
+      setUsers(data);
+    };
 
-export const UserContextProvider = ({children}: UserContextProps) => {
-    const [name, setName] = useState(initialValue.name)
-    const [email, setEmail] = useState(initialValue.email)
-    const [phone, setPhone] = useState(initialValue.phone)
-    const [city, setCity] = useState(initialValue.city)
+    fetchApi();
+  }, []);
 
-    const [users, setUsers] = useState<API[]>(initialValue.users)
-
-    return (
-        <UserContext.Provider 
-            value={{name, setName, email, setEmail, phone, setPhone, city, setCity, users, setUsers}}>
-                {children}
-        </UserContext.Provider>
-    )
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  return (
+    <UserContext.Provider
+      value={{
+        name,
+        setName,
+        email,
+        setEmail,
+        phone,
+        setPhone,
+        city,
+        setCity,
+        users,
+        setUsers,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
+};
